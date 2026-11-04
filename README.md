@@ -1,5 +1,11 @@
 # garmin-personal-mcp
 
+## ChatGPT on this personal deployment
+
+This fork adds an optional OAuth sign-in flow for the existing Vercel endpoint.
+See [ChatGPT setup](docs/CHATGPT.md) for the new client secret and sign-in steps.
+Keep `GARMIN_PERSONAL_API_KEY` and `MCP_BEARER_TOKEN` private in Vercel settings.
+
 Your whole Garmin history, in Claude. Every activity since your first watch, the original FIT files, sleep, HRV, Body Battery. Runs on your machine with a key only you hold.
 
 In October 2026 Garmin opened a [Personal tier](https://developer.garmin.com/gc-developer-program/overview/) of the Connect API: one key, one person, your own data, no application to file. This is a TypeScript [MCP](https://modelcontextprotocol.io) server over that API, so Claude Desktop, Claude Code, Cursor, ChatGPT or any other MCP client can ask questions of your data directly. It is read-only. Nothing is written to your Garmin account and nothing is sent anywhere except to the AI client you connect.

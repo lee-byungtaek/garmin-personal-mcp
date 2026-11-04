@@ -58,7 +58,12 @@ async function serve(handler: (r: Request) => Promise<Response>, req: IncomingMe
 function httpServer(apiKeyFile: string | undefined): Server {
   const bearerToken = process.env.MCP_BEARER_TOKEN;
   const handler = bearerToken
-    ? createFetchHandler({ apiKeyFile, bearerToken })
+    ? createFetchHandler({
+        apiKeyFile,
+        bearerToken,
+        oauthEnv: process.env,
+        publicOrigin: process.env.MCP_PUBLIC_ORIGIN || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : undefined),
+      })
     : async () => new Response("MCP_BEARER_TOKEN is not set. Refusing to serve Garmin data without one.", { status: 503 });
   if (!bearerToken) console.error("MCP_BEARER_TOKEN is not set; every request will answer 503 until it is.");
   return createHttpServer((req, res) => {
